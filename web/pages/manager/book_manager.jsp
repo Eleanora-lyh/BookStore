@@ -11,7 +11,7 @@
 <body>
 
 <div id="header">
-    <img class="logo_img" alt="" src="../../static/img/logo.gif">
+    <img class="logo_img" alt="" src="static/img/logo.gif">
     <span class="wel_word">图书管理系统</span>
     <%-- 静态包含 manager管理模块的菜单  --%>
     <%@include file="/pages/commen/manager_menu.jsp" %>
@@ -27,7 +27,8 @@
             <td>库存</td>
             <td colspan="2">操作</td>
         </tr>
-        <%-- 用EL表达式+EL隐含隐含对象requestScope，遍历存入request域中的list集合books--%>
+        <%-- 用EL表达式+EL隐含隐含对象requestScope，<c:forEach>遍历，存入request域中的list集合books--%>
+        <%-- 效果就是将数据库中的数据读取出来显示在页面中--%>
         <c:forEach items="${requestScope.books}" var="book">
             <tr>
                 <td>${book.name}</td>

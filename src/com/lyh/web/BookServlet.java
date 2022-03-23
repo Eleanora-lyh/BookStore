@@ -23,8 +23,11 @@ public class BookServlet extends BaseServlet {
         //2、点击提交，添加到数据库
         bookService.addBook(book);
         //3、返回manager/bookServlet?action=list程序，执行list显示界面
-
-        //4、
+        String s1 = "/manager/bookServlet?action=list";
+        String s2 = req.getContextPath() + "/manager/bookServlet?action=list";
+        System.out.println(s1);
+        System.out.println(s2);
+        resp.sendRedirect(s2);
 
     }
     protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
