@@ -43,7 +43,7 @@
         </tr>
         <%-- 用EL表达式+EL隐含隐含对象requestScope，<c:forEach>遍历，存入request域中的list集合books--%>
         <%-- 效果就是将数据库中的数据读取出来显示在页面中--%>
-        <c:forEach items="${requestScope.books}" var="book">
+        <c:forEach items="${requestScope.page.items}" var="book">
             <tr>
                 <td>${book.name}</td>
                 <td>${book.price}</td>
@@ -66,6 +66,45 @@
             <td><a href="pages/manager/book_edit.jsp">添加图书</a></td>
         </tr>
     </table>
+    <div id="page_nav">
+        <%--如果当前页码 > 1 --%>
+        <c:if test="${requestScope.page.pageNo > 1}">
+            <a href="manager/bookServlet?action=page&pageNo=1">首页</a>
+            <a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo-1}">上一页</a>
+        </c:if>
+
+
+        <a href="#">3</a>
+        【${requestScope.page.pageNo}】
+        <a href="#">5</a>
+
+        <%--如果当前页码<总页码才会显示下一页--%>
+        <c:if test="${requestScope.page.pageNo < requestScope.page.pageTotal}">
+            <a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo+1}">下一页</a>
+            <a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageTotal}">末页</a>
+        </c:if>
+
+        共${requestScope.page.pageTotal}页，${requestScope.page.pageTotalCount}条记录
+        到第<input value="${param.pageNo}" name="pn" id="pn_input"/>页
+        <input id="searchPageBtn" type="button" value="确定">
+
+        <script type="text/javascript">
+
+            $(function () {
+                // 跳到指定的页码
+                $("#searchPageBtn").click(function () {
+                    var pageNo = $("#pn_input").val();
+                    <%--var pageTotal = ${requestScope.page.pageTotal};--%>
+                    <%--alert(pageTotal);--%>
+                    // javaScript语言中提供了一个location地址栏对象
+                    // 它有一个属性叫href(可读，可写).它可以获取浏览器地址栏中的地址
+                    location.href = "${pageScope.basePath}manager/bookServlet?action=page&pageNo=" + pageNo;
+                    //地址的值应该是个动态的值，所以在head.jsp中设置pageContext.setAttribute("basePath", basepath);
+                });
+            });
+
+        </script>
+    </div>
 </div>
 <%--页脚--%>
 <%@include file="/pages/commen/footer.jsp" %>

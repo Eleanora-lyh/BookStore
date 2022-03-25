@@ -1,7 +1,11 @@
 package com.lyh.pojo;
 
 import java.math.BigDecimal;
-
+/**
+ * @Description Book类存储图书信息，关联到图书管理模块
+ * @Param 
+ * @return 
+ **/
 public class Book {
     private Integer id;
     private String name;

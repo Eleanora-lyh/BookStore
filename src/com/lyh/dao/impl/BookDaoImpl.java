@@ -3,6 +3,7 @@ package com.lyh.dao.impl;
 import com.lyh.dao.BookDao;
 import com.lyh.pojo.Book;
 
+import java.nio.channels.SelectableChannel;
 import java.util.List;
 
 public class BookDaoImpl extends BaseDAO implements BookDao {
@@ -34,5 +35,18 @@ public class BookDaoImpl extends BaseDAO implements BookDao {
     public List<Book> queryBooks() {
         String sql = "select `id` , `name` , `author` , `price` , `sales` , `stock` , `img_path` imgPath from t_book";
         return queryForList(Book.class, sql);
+    }
+
+    @Override
+    public Integer queryForPageTotalCount() {
+        String sql = "select count(*) from t_book";
+        Number number = (Number) queryForSingleValue(sql);
+        return number.intValue();
+    }
+
+    @Override
+    public List<Book> queryForPageItems(int begin, int pageSize) {
+        String sql = "select `id` , `name` , `author` , `price` , `sales` , `stock` , `img_path` imgPath from t_book limit ? , ?";
+        return queryForList(Book.class,sql,begin,pageSize);
     }
 }

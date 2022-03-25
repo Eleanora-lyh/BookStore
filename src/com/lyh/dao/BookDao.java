@@ -10,4 +10,8 @@ public interface BookDao {
     public int deleteById(Integer id);
     public Book queryBookByID(Integer id);
     public List<Book> queryBooks();
+
+    Integer queryForPageTotalCount();
+
+    List<Book> queryForPageItems(int begin, int pageSize);
 }

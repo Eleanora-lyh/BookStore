@@ -5,6 +5,7 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class JdbcUtils {
@@ -35,6 +36,10 @@ public class JdbcUtils {
     }
 //    关闭连接，放回数据库连接池
     public static void close(Connection conn){
-
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

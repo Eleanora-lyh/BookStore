@@ -1,24 +1,27 @@
 package com.lyh.web;
 
 import com.lyh.pojo.Book;
+import com.lyh.pojo.Page;
 import com.lyh.service.BookService;
 import com.lyh.service.impl.BookServiceImpl;
 import com.lyh.utils.WebUtils;
-import org.apache.commons.beanutils.LazyDynaList;
-import org.apache.commons.collections.ArrayStack;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @Description 此类为处理web层的类：处理页面传递的参数，进而调用service层的方法实现具体的页面功能
+ * @Param
+ * @return
+ **/
 public class BookServlet extends BaseServlet {
     private BookService bookService = new BookServiceImpl();
     /**
-     * @Description 点击添加图书时 new book对象，同时将新书添加到页面中，使用重定向显示新的界面
+     * @Description 点击添加时 <td><a href="pages/manager/book_edit.jsp">添加图书</a></td>
+     * 进入book_edit.jsp，如果是add <input type="hidden" name="action" value="${empty param.id?"add":"update"}"/>
+     * 调用此方法，创建一个book对象，使用重定向/manager/bookServlet?action=list调用list方法，显示新的界面
      * @Param [req, resp]
      * @return void
      **/
@@ -30,6 +33,12 @@ public class BookServlet extends BaseServlet {
         //3、重定向到图书列表 /book/manager/bookServlet?action=list
         resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=list ");
     }
+    /**
+     * @Description 点击某书的修改时<a href="manager/bookServlet?action=getBookInfo&id=${book.id}">修改</a>
+     * 通过反射调用此方法，获取到该书的信息，显示在修改界面book_edit.jsp中
+     * @Param [req, resp]
+     * @return void
+     **/
     protected void getBookInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //1、获取图书的编号
         int id = WebUtils.parseInt(req.getParameter("id"),0);
@@ -40,6 +49,13 @@ public class BookServlet extends BaseServlet {
         //4、请求转发到 /book/pages/manager/book_edit.jsp中
         req.getRequestDispatcher("/pages/manager/book_edit.jsp").forward(req,resp);
     }
+    /**
+     * @Description 点击修改会先进入<a href="manager/bookServlet?action=getBookInfo&id=${book.id}">修改</a>
+     * 跳转进book_edit.jsp中，在此界面<input type="hidden" name="action" value="${empty param.id?"add":"update"}"/>
+     * 根据action在提交的时候选择调用update方法，获取参数得到新书，同时重定向到list方法
+     * @Param [req, resp]
+     * @return void
+     **/
     protected void update(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //1、获取请求的参数
         Book book = WebUtils.copyParamToBean(req.getParameterMap(),new Book());
@@ -49,7 +65,8 @@ public class BookServlet extends BaseServlet {
         resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=list ");
     }
     /**
-     * @Description 获取图书的id(String)后，按照id(int)删除图书，使用重定向显示新的界面
+     * @Description 点击删除时，<a class="deleteClass" href="manager/bookServlet?action=delete&id=${book.id}">
+     *     调用此方法，获取参数得到图书id，根据id删除图书，并重定向到list方法
      * @Param [req, resp]
      * @return void
      **/
@@ -61,6 +78,12 @@ public class BookServlet extends BaseServlet {
         //3、重定向到图书列表
         resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=list ");
     }
+    /**
+     * @Description 点击图书管理时 <a href="manager/bookServlet?action=list">图书管理</a>
+     * 就会调用此方法，查询数据库的全部图书信息得到books，进入新的界面/pages/manager/book_manager.jsp，显示表头，遍历books显示图书
+     * @Param [req, resp]
+     * @return void
+     **/
     protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //1、通过bookService查询全部图书
         List<Book> books = bookService.queryBooks();
@@ -69,4 +92,36 @@ public class BookServlet extends BaseServlet {
         //3、请求转发到 /pages/manager/book_manager.jsp页面
         req.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(req,resp);
     }
+    /**
+     * @Description 处理分页功能
+     * @Param [req, resp]
+     * @return void
+     **/
+    protected void page(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //1、获取请求的参数 pageNo(默认第一页) pageSize(默认为4)
+        int pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
+        int pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.PAGE_SIZE);
+        //2、调用bookService.page(pageNo,pageSize) 获取page对象
+        Page<Book> page = bookService.page(pageNo,pageSize);
+        //3、保存page对象到request域中
+        req.setAttribute("page",page);
+        //4、请求转发到book_n=manager页面
+        req.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(req,resp);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,13 +1,13 @@
 package com.lyh.test;
 
 import com.lyh.pojo.Book;
+import com.lyh.pojo.Page;
 import com.lyh.service.BookService;
 import com.lyh.service.impl.BookServiceImpl;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
 
 public class BookServiceTest {
 
@@ -41,4 +41,10 @@ public class BookServiceTest {
             System.out.println(queryBook);
         }
     }
+
+    @Test
+    public void page(){
+        System.out.println(bookService.page(6,Page.PAGE_SIZE));
+    }
+
 }

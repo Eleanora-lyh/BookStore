@@ -1,5 +1,9 @@
 package com.lyh.pojo;
-
+/**
+ * @Description User类存储用户的信息，关联到用户注册登录模块
+ * @Param
+ * @return
+ **/
 public class User {
     private Integer id;
     private String username;
