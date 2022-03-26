@@ -44,8 +44,6 @@ public class BookServiceImpl implements BookService {
     @Override
     public Page<Book> page(int pageNo, int pageSize) {
         Page<Book> page = new Page<Book>();
-
-
         //2、设置每页显示的数量
         page.setPageSize(pageSize);
 
@@ -65,6 +63,33 @@ public class BookServiceImpl implements BookService {
         //5、设置page数据:items
         int begin = (page.getPageNo() - 1) * pageSize;
         List<Book> items = bookDao.queryForPageItems(begin, pageSize);
+        page.setItems(items);
+
+        return page;
+    }
+
+    @Override
+    public Page<Book> pageByPrice(int pageNo, int pageSize, int min, int max) {
+        Page<Book> page = new Page<Book>();
+        //2、设置每页显示的数量
+        page.setPageSize(pageSize);
+
+        //3、设置page总记录数:pageTotalCount
+        Integer pageTotalCount = bookDao.queryForPageTotalCountByPrice(min,max);
+        page.setPageTotalCount(pageTotalCount);
+
+        //3、设置page的总页码:pageTotal
+        Integer pageTotal = pageTotalCount / pageSize;
+        if (pageTotalCount % pageSize > 0) pageTotal += 1;
+        page.setPageTotal(pageTotal);
+
+
+        //1、设置page当前页码:pageNo
+        page.setPageNo(pageNo);
+
+        //5、设置page数据:items
+        int begin = (page.getPageNo() - 1) * pageSize;
+        List<Book> items = bookDao.queryForPageItemsByPrice(begin, pageSize,min,max);
         page.setItems(items);
 
         return page;

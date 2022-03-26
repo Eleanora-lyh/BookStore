@@ -50,8 +50,8 @@
                 <td>${book.author}</td>
                 <td>${book.sales}</td>
                 <td>${book.stock}</td>
-                <td><a href="manager/bookServlet?action=getBookInfo&id=${book.id}">修改</a></td>
-                <td><a class="deleteClass" href="manager/bookServlet?action=delete&id=${book.id}">删除</a></td>
+                <td><a href="manager/bookServlet?action=getBookInfo&id=${book.id}&pageNo=${requestScope.page.pageNo}">修改</a></td>
+                <td><a class="deleteClass" href="manager/bookServlet?action=delete&id=${book.id}&pageNo=${requestScope.page.pageNo}">删除</a></td>
             </tr>
         </c:forEach>
 
@@ -63,48 +63,12 @@
             <td></td>
             <td></td>
             <td></td>
-            <td><a href="pages/manager/book_edit.jsp">添加图书</a></td>
+            <td><a href="pages/manager/book_edit.jsp?pageNo=${requestScope.page.pageTotal}">添加图书</a></td>
         </tr>
     </table>
-    <div id="page_nav">
-        <%--如果当前页码 > 1 --%>
-        <c:if test="${requestScope.page.pageNo > 1}">
-            <a href="manager/bookServlet?action=page&pageNo=1">首页</a>
-            <a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo-1}">上一页</a>
-        </c:if>
 
-
-        <a href="#">3</a>
-        【${requestScope.page.pageNo}】
-        <a href="#">5</a>
-
-        <%--如果当前页码<总页码才会显示下一页--%>
-        <c:if test="${requestScope.page.pageNo < requestScope.page.pageTotal}">
-            <a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageNo+1}">下一页</a>
-            <a href="manager/bookServlet?action=page&pageNo=${requestScope.page.pageTotal}">末页</a>
-        </c:if>
-
-        共${requestScope.page.pageTotal}页，${requestScope.page.pageTotalCount}条记录
-        到第<input value="${param.pageNo}" name="pn" id="pn_input"/>页
-        <input id="searchPageBtn" type="button" value="确定">
-
-        <script type="text/javascript">
-
-            $(function () {
-                // 跳到指定的页码
-                $("#searchPageBtn").click(function () {
-                    var pageNo = $("#pn_input").val();
-                    <%--var pageTotal = ${requestScope.page.pageTotal};--%>
-                    <%--alert(pageTotal);--%>
-                    // javaScript语言中提供了一个location地址栏对象
-                    // 它有一个属性叫href(可读，可写).它可以获取浏览器地址栏中的地址
-                    location.href = "${pageScope.basePath}manager/bookServlet?action=page&pageNo=" + pageNo;
-                    //地址的值应该是个动态的值，所以在head.jsp中设置pageContext.setAttribute("basePath", basepath);
-                });
-            });
-
-        </script>
-    </div>
+    <%--静态包含分页条--%>
+    <%@include file="/pages/commen/page_nav.jsp"%>
 </div>
 <%--页脚--%>
 <%@include file="/pages/commen/footer.jsp" %>
