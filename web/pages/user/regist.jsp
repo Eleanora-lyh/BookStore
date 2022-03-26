@@ -15,6 +15,13 @@
     </style>
     <script type="text/javascript">
         $(function () { //页面加载完成后
+            // 给验证码的图片，绑定单击事件
+            $("#code_img").click(function () {
+                // 在事件响应的function函数中有一个this对象。这个this对象，是当前正在响应事件的dom对象
+                // src属性表示验证码img标签的 图片路径。它可读，可写
+                // alert(this.src);
+                this.src = "${basePath}kaptcha.jpg?d=" + new Date();
+            });
             //给注册绑定单击事件
             $("#sub_btn").click(function () {
                 //验证用户名： 必须由字母， 数字下划线组成， 并且长度为 5 到 12 位
@@ -121,8 +128,8 @@
                         <br/>
                         <br/>
                         <label>验证码：</label>
-                        <input class="itxt" type="text" style="width: 150px;" name="code" id="code"/>
-                        <img alt="" src="static/img/code.bmp" style="float: right; margin-right: 40px">
+                        <input class="itxt" type="text" name="code" style="width: 80px;" id="code" />
+                        <img id="code_img" alt="" src="kaptcha.jpg" style="float: right; margin-right: 40px; width: 110px; height: 30px;">
                         <br/>
                         <br/>
                         <input type="submit" value="注册" id="sub_btn"/>
