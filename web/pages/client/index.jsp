@@ -8,7 +8,19 @@
 
 	<%-- 静态包含 base标签、css样式、jQuery文件 --%>
 	<%@ include file="/pages/commen/head.jsp"%>
+	<Script type="text/javascript">
+		$(function () {
+			// 给加入购物车按钮绑定单击事件
+			$("button.addToCart").click(function () {
+				/**
+				 * 在事件响应的function函数 中，有一个this对象，这个this对象，是当前正在响应事件的dom对象
+				 */
+				var bookId = $(this).attr("bookId");
+				location.href = "http://localhost:8080/book/cartServlet?action=addItem&id=" + bookId;
 
+			});
+		});
+	</Script>
 </head>
 <body>
 	
@@ -43,10 +55,19 @@
 				</form>
 			</div>
 			<div style="text-align: center">
-				<span>您的购物车中有3件商品</span>
-				<div>
-					您刚刚将<span style="color: red">时间简史</span>加入到了购物车中
-				</div>
+				<c:if test="${empty sessionScope.cart.items}">
+					<div>
+						<span style="color: red">当前购物车为空</span>
+					</div>
+				</c:if>
+
+				<c:if test="${not empty sessionScope.cart.items}">
+					<span>您的购物车中有 ${sessionScope.cart.totalCount} 件商品</span>
+					<div>
+						您刚刚将<span style="color: red">${sessionScope.lastName}</span>加入到了购物车中
+					</div>
+				</c:if>
+
 			</div>
 
 			<c:forEach items="${requestScope.page.items}" var="book">
@@ -76,7 +97,7 @@
 						<span class="sp2">${book.stock}</span>
 					</div>
 					<div class="book_add">
-						<button>加入购物车</button>
+						<button bookId="${book.id}" class="addToCart">加入购物车</button>
 					</div>
 				</div>
 			</div>
