@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,7 @@
 <body>
 
 <div id="header">
-    <img class="logo_img" alt="" src="../../static/img/logo.gif">
+    <img class="logo_img" alt="" src="static/img/logo.gif">
     <span class="wel_word">订单管理系统</span>
     <%@include file="/pages/commen/manager_menu.jsp" %>
 </div>
@@ -22,28 +23,39 @@
             <td>金额</td>
             <td>详情</td>
             <td>发货</td>
-
         </tr>
-        <tr>
-            <td>2015.04.23</td>
-            <td>90.00</td>
-            <td><a href="#">查看详情</a></td>
-            <td><a href="#">点击发货</a></td>
-        </tr>
-
-        <tr>
-            <td>2015.04.20</td>
-            <td>20.00</td>
-            <td><a href="#">查看详情</a></td>
-            <td>已发货</td>
-        </tr>
-
-        <tr>
-            <td>2014.01.23</td>
-            <td>190.00</td>
-            <td><a href="#">查看详情</a></td>
-            <td>等待收货</td>
-        </tr>
+        <c:if test="${not empty requestScope.allOrder}">
+            <c:forEach items="${requestScope.allOrder}" var="order">
+                <tr><%--fn:substring(order.createTime,0,10)--%>
+                    <td>${order.createTime}</td>
+                    <td>${order.price}</td>
+                    <td><a href="orderServlet?action=showOrderDetail&orderId=${order.orderId}">查看详情</a></td>
+                    <td>
+                            <%--待发货--%>
+                        <c:choose>
+                            <c:when test="${order.status == 0}">
+                                <a href="orderServlet?action=sendOrder&orderId=${order.orderId}">点击发货</a>
+                            </c:when>
+                            <c:otherwise>
+                                <c:choose>
+                                    <c:when test="${order.status == 1}">
+                                        已发货
+                                    </c:when>
+                                    <c:when test="${order.status == 2}">
+                                        已签收
+                                    </c:when>
+                                </c:choose>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+            </c:forEach>
+        </c:if>
+<%--        <c:if test="${empty requestScope.allOrder}">
+            <tr>
+                <td colspan="4"><a href="pages/manager/manager.jsp">目前暂时没有订单需要处理！点击返回管理主页</a></td>
+            </tr>
+        </c:if>--%>
     </table>
 </div>
 

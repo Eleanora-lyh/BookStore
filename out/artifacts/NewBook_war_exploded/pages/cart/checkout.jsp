@@ -18,18 +18,13 @@
 <div id="header">
     <img class="logo_img" alt="" src="../../static/img/logo.gif">
     <span class="wel_word">结算</span>
-    <%--			<div>
-                    <span>欢迎<span class="um_span">韩总</span>光临尚硅谷书城</span>
-                    <a href="../order/order.jsp">我的订单</a>
-                    <a href="../../index.jsp">注销</a>&nbsp;&nbsp;
-                    <a href="../../index.jsp">返回</a>
-                </div>--%>
+    <%--静态包含，登录 成功之后的菜单 --%>
     <%@include file="/pages/commen/login_success_menu.jsp" %>
 </div>
 
 <div id="main">
 
-    <h1>你的订单已结算，订单号为2937474382928484747</h1>
+    <h1>你的订单已结算，订单号为：${sessionScope.orderId}</h1>
 
 
 </div>

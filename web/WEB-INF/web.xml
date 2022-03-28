@@ -48,5 +48,13 @@
         <url-pattern>/cartServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>com.lyh.web.OrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/orderServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>

@@ -8,12 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!--base标签永远固定，想对路径的跳转结果，写到工程路径表示当前是web文件夹-->
 <%
-    String basepath = request.getScheme() //获取当前的协议
+    String basepath = request.getScheme() //获取当前的协议 ：http
             + "://"
-            + request.getServerName()
+            + request.getServerName() // localhost
             + ":"
-            + request.getServerPort()
-            + request.getContextPath()
+            + request.getServerPort() //服务器端口号
+            + request.getContextPath() // /book
             + "/";
     pageContext.setAttribute("basePath", basepath);
 %>
