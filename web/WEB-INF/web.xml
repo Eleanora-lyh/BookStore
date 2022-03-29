@@ -57,4 +57,36 @@
         <url-pattern>/orderServlet</url-pattern>
     </servlet-mapping>
 
+    <filter>
+        <filter-name>MangerFilter</filter-name>
+        <filter-class>com.lyh.filter.ManageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MangerFilter</filter-name>
+        <url-pattern>/pages/manager/*</url-pattern>
+        <url-pattern>/manager/bookServlet</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>TransactionFilter</filter-name>
+        <filter-class>com.lyh.filter.TransactionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>TransactionFilter</filter-name>
+        <!-- 当前工程下的所有请求，也就是所有的业务-->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--error-page标签配置，服务器出错之后，自动跳转的页面-->
+    <error-page>
+        <!--error-code是错误类型-->
+        <error-code>500</error-code>
+        <!--location标签表示。要跳转去的页面路径-->
+        <location>/pages/error/error_500.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/pages/error/error_404.jsp</location>
+    </error-page>
 </web-app>

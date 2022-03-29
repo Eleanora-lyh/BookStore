@@ -24,10 +24,8 @@ public abstract class BaseDAO {
             return queryRunner.update(conn,sql,args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return -1;
     }
     //查询返回一个对象
     public <T>T queryForOne(Class<T> Type,String sql, Object ...args){
@@ -36,10 +34,8 @@ public abstract class BaseDAO {
             return queryRunner.query(conn,sql,new BeanHandler<T>(Type),args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return null;
     }
     //查询返回多个javabean对象
     public <T> List<T> queryForList(Class<T> Type, String sql, Object ...args){
@@ -48,10 +44,8 @@ public abstract class BaseDAO {
             return queryRunner.query(conn,sql,new BeanListHandler<T>(Type),args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return null;
     }
     //查询返回单个值
     public Object queryForSingleValue(String sql, Object ...args){
@@ -60,9 +54,7 @@ public abstract class BaseDAO {
             return queryRunner.query(conn,sql, new ScalarHandler(),args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 }

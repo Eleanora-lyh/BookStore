@@ -61,7 +61,7 @@
         </c:if>
         <c:if test="${empty requestScope.orderList}">
             <tr>
-                <td colspan="4"><a href="index.jsp">当前没有订单信息，过去首页进行下单吧！</a></td>
+                <td colspan="4"><a href="pages/cart/cart.jsp">您暂时还没有任何的订单信息，快去购物车进行结账吧！</a></td>
             </tr>
         </c:if>
     </table>

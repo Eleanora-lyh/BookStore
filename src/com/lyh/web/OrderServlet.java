@@ -6,6 +6,7 @@ import com.lyh.pojo.OrderItem;
 import com.lyh.pojo.User;
 import com.lyh.service.OrderService;
 import com.lyh.service.impl.OrderServiceImpl;
+import com.lyh.utils.JdbcUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,8 +31,6 @@ public class OrderServlet extends BaseServlet {
         Integer userId = loginUser.getId();
 //        调用orderService.createOrder(Cart,Userid);生成订单
         String orderId = orderService.createOrder(cart, userId);
-
-//        req.setAttribute("orderId", orderId);
         // 请求转发到/pages/cart/checkout.jsp
 //        req.getRequestDispatcher("/pages/cart/checkout.jsp").forward(req, resp);
 //      重定向是不支持保存到request域中的，所以要保存到session中
