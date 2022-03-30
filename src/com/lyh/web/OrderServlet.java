@@ -71,6 +71,7 @@ public class OrderServlet extends BaseServlet {
             List<Order> orderList = orderService.showMyOrders(user.getId());
             //回传数据
             req.setAttribute("orderList", orderList);
+
             //返回页面
             req.getRequestDispatcher("/pages/order/order.jsp").forward(req, resp);
         } else {//未登录的情况下，返回页面
@@ -81,7 +82,7 @@ public class OrderServlet extends BaseServlet {
     protected void receiveOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //(1)获取订单号
         String orderId = req.getParameter("orderId");
-        //(2)签收订单
+        //(2)签收订单，将订单的状态修改为2，表示已签收
         orderService.receiveOrder(orderId);
         //(3)获取用户
         User user = (User) req.getSession().getAttribute("user");

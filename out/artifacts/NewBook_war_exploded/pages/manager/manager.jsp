@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>后台管理</title>
-    <%--
-    <link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
-    --%>
+    <%--    <link type="text/css" rel="stylesheet" href="../../static/css/style.css" > --%>
     <%@include file="/pages/commen/head.jsp" %>
     <style type="text/css">
         h1 {

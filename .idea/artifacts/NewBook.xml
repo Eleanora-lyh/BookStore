@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="NewBook">
+    <output-path>$PROJECT_DIR$/out/artifacts/NewBook</output-path>
+    <root id="archive" name="NewBook.war">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/web/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="NewBook" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="commons-dbutils-1.3" />
+          <element id="file-copy" path="$PROJECT_DIR$/../Library/javax_jar/javax.servlet.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../Library/javax_jar/javax.servlet.jsp.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../Library/javax_jar/javax.servlet.jsp.jstl.jar" />
+          <element id="library" level="project" name="commons-beanutils-1.8.0" />
+          <element id="library" level="project" name="commons-logging-1.1.1" />
+          <element id="library" level="project" name="lib" />
+          <element id="library" level="project" name="gson-2.2.4" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="NewBook/web/Web" />
+    </root>
+  </artifact>
+</component>

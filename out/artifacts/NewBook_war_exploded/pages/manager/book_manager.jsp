@@ -50,8 +50,8 @@
                 <td>${book.author}</td>
                 <td>${book.sales}</td>
                 <td>${book.stock}</td>
-                <td><a href="manager/bookServlet?action=getBookInfo&id=${book.id}&pageNo=${requestScope.page.pageNo}">修改</a></td>
-                <td><a class="deleteClass" href="manager/bookServlet?action=delete&id=${book.id}&pageNo=${requestScope.page.pageNo}">删除</a></td>
+                <td><a href="managers/bookServlet?action=getBookInfo&id=${book.id}&pageNo=${requestScope.page.pageNo}">修改</a></td>
+                <td><a class="deleteClass" href="managers/bookServlet?action=delete&id=${book.id}&pageNo=${requestScope.page.pageNo}">删除</a></td>
             </tr>
         </c:forEach>
 

@@ -30,13 +30,13 @@ public class BookServlet extends BaseServlet {
         Book book = WebUtils.copyParamToBean(req.getParameterMap(),new Book());
         //2、点击提交，添加到数据库
         bookService.addBook(book);
-        //3、重定向到图书列表 /book/manager/bookServlet?action=list
+        //3、重定向到图书列表 /book/managers/bookServlet?action=list
         int pageNo = WebUtils.parseInt(req.getParameter("pageNo"),0);
         pageNo+=1;
-        resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=page&pageNo="+ pageNo);
+        resp.sendRedirect(req.getContextPath() + "/managers/bookServlet?action=page&pageNo="+ pageNo);
     }
     /**
-     * @Description 点击某书的修改时<a href="manager/bookServlet?action=getBookInfo&id=${book.id}">修改</a>
+     * @Description 点击某书的修改时<a href="managers/bookServlet?action=getBookInfo&id=${book.id}">修改</a>
      * 通过反射调用此方法，获取到该书的信息，显示在修改界面book_edit.jsp中
      * @Param [req, resp]
      * @return void
@@ -52,7 +52,7 @@ public class BookServlet extends BaseServlet {
         req.getRequestDispatcher("/pages/manager/book_edit.jsp").forward(req,resp);
     }
     /**
-     * @Description 点击修改会先进入<a href="manager/bookServlet?action=getBookInfo&id=${book.id}">修改</a>
+     * @Description 点击修改会先进入<a href="managers/bookServlet?action=getBookInfo&id=${book.id}">修改</a>
      * 跳转进book_edit.jsp中，在此界面<input type="hidden" name="action" value="${empty param.id?"add":"update"}"/>
      * 根据action在提交的时候选择调用update方法，获取参数得到新书，同时重定向到list方法
      * @Param [req, resp]
@@ -64,10 +64,10 @@ public class BookServlet extends BaseServlet {
         //2、修改图书信息
         bookService.updateBook(book);
         //3、重定向到list表单项
-        resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=page&pageNo="+req.getParameter("pageNo"));
+        resp.sendRedirect(req.getContextPath() + "/managers/bookServlet?action=page&pageNo="+req.getParameter("pageNo"));
     }
     /**
-     * @Description 点击删除时，<a class="deleteClass" href="manager/bookServlet?action=delete&id=${book.id}">
+     * @Description 点击删除时，<a class="deleteClass" href="managers/bookServlet?action=delete&id=${book.id}">
      *     调用此方法，获取参数得到图书id，根据id删除图书，并重定向到list方法
      * @Param [req, resp]
      * @return void
@@ -78,7 +78,7 @@ public class BookServlet extends BaseServlet {
         //2、删除图书信息
         bookService.deleteById(id);
         //3、重定向到图书列表
-        resp.sendRedirect(req.getContextPath() + "/manager/bookServlet?action=page&pageNo="+req.getParameter("pageNo"));
+        resp.sendRedirect(req.getContextPath() + "/managers/bookServlet?action=page&pageNo="+req.getParameter("pageNo"));
     }
     /**
      * @Description 点击图书管理时 <a href="manager/bookServlet?action=list">图书管理</a>
@@ -107,7 +107,7 @@ public class BookServlet extends BaseServlet {
         //2、调用bookService.page(pageNo,pageSize) 获取page对象
         Page<Book> page = bookService.page(pageNo,pageSize);
 
-        page.setUrl("manager/bookServlet?action=page");
+        page.setUrl("managers/bookServlet?action=page");
         //3、保存page对象到request域中
         req.setAttribute("page",page);
         //4、请求转发到book_manager页面
