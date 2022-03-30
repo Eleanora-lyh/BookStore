@@ -1,5 +1,6 @@
 package com.lyh.web;
 
+import com.google.gson.Gson;
 import com.lyh.pojo.User;
 import com.lyh.service.UserService;
 import com.lyh.service.impl.UserServiceImpl;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
@@ -75,5 +78,20 @@ public class UserServlet extends BaseServlet {
 //            System.out.println("验证码[" + code + "]错误");
             req.getRequestDispatcher("/pages/user/regist.jsp").forward(req, resp);
         }
+    }
+
+    protected void ajaxExistsUsername(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //获取请求的参数username
+        String username = req.getParameter("username");
+        //调用userService.existsUsername()
+        boolean existsUsername = userService.existsUsername(username);
+        //结果封装为map对象
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("existsUsername",existsUsername);
+        //将结果的map转为字符串
+        Gson gson = new Gson();
+        String json = gson.toJson(resultMap);
+        //回传写入字符串
+        resp.getWriter().write(json);
     }
 }
