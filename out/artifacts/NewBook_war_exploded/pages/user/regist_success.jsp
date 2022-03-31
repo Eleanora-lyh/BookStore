@@ -19,7 +19,7 @@
 </head>
 <body>
 <div id="header">
-    <img class="logo_img" alt="" src="static/img/logo.gif">
+<%--    <img class="logo_img" alt="" src="static/img/logo.gif">--%>
     <span class="wel_word"></span>
     <%--显示登陆成功后共有的提示信息--%>
     <%@include file="/pages/commen/login_success_menu.jsp" %>
