@@ -100,7 +100,6 @@ public class BookServlet extends BaseServlet {
      * @return void
      **/
     protected void page(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         //1、获取请求的参数 pageNo(默认第一页) pageSize(默认为4)
         int pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
         int pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.PAGE_SIZE);

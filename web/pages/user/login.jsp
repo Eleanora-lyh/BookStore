@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="login_header">
-    <img class="logo_img" alt="" src="static/img/logo.gif">
+<%--    <img class="logo_img" alt="" src="static/img/logo.gif">--%>
 </div>
 
 <div class="login_banner">

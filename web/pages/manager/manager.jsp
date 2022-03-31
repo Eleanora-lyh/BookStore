@@ -16,7 +16,7 @@
 <body>
 
 <div id="header">
-    <img class="logo_img" alt="" src="static/img/logo.gif">
+<%--    <img class="logo_img" alt="" src="static/img/logo.gif">--%>
     <span class="wel_word">后台管理系统</span>
     <%--管理菜单：图书管理 订单管理 返回商城--%>
     <%@include file="/pages/commen/manager_menu.jsp" %>

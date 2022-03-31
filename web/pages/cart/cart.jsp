@@ -27,7 +27,7 @@
                 var count = this.value;
                 if ( confirm("你确定要将【" + name + "】商品修改数量为：" + count + " 吗?") ) {
                     //发起请求。给服务器保存修改
-                    location.href = "http://localhost:8080/book/cartServlet?action=updateCount&count="+count+"&id="+id;
+                    location.href = "${basepath}cartServlet?action=updateCount&count="+count+"&id="+id;
                 } else {
                     // defaultValue属性是表单项Dom对象的属性。它表示默认的value属性值。
                     this.value = this.defaultValue;
@@ -36,12 +36,11 @@
 
         });
     </script>
-
 </head>
 <body>
 
 <div id="header">
-    <img class="logo_img" alt="" src="static/img/logo.gif">
+<%--    <img class="logo_img" alt="" src="static/img/logo.gif">--%>
     <span class="wel_word">购物车</span>
     <%@include file="/pages/commen/login_success_menu.jsp" %>
 </div>
@@ -62,6 +61,7 @@
                 <td colspan="5"><a href="index.jsp">亲，当前购物车为空！快跟小伙伴们去浏览商品吧！！！</a> </td>
             </tr>
         </c:if>
+
         <c:if test="${not empty sessionScope.cart.items}">
             <%--如果购物车非空的情况--%>
             <c:forEach items="${sessionScope.cart.items}" var="entry">

@@ -17,7 +17,7 @@
                  */
                 var bookId = $(this).attr("bookId");
                 // location.href = "http://localhost:8080/book/cartServlet?action=addItem&id=" + bookId;
-                $.getJSON("${basePbasePath}cartServlet", "action=ajaxAddItem&id=" + bookId, function (data) {
+                $.getJSON("${basePath}cartServlet", "action=ajaxAddItem&id=" + bookId, function (data) {
                     ${data}
                     $("#cartTotalCount").text("您的购物车中有 " + data.totalCount + " 件商品");
                     $("#cartLastName").text(data.lastName);
@@ -33,7 +33,7 @@
 <body>
 
 <div id="header">
-    <img class="logo_img" alt="" src="static/img/logo.gif">
+<%--    <img class="logo_img" alt="" src="static/img/logo.gif">--%>
     <span class="wel_word">网上书城</span>
     <div>
         <%--如果用户还没有登录，显示 【登录 注册的菜单】 --%>
@@ -45,7 +45,7 @@
         <c:if test="${not empty sessionScope.user}">
             <span>欢迎<span class="um_span">${sessionScope.user.username}</span>光临尚硅谷书城</span>
             <a href="orderServlet?action=showMyOrder">我的订单</a>
-            <a href="userServlet?action=logout">登出</a>&nbsp;&nbsp;&nbsp;
+            <a href="userServlet?action=logout">登出</a>
         </c:if>
         <a href="pages/cart/cart.jsp">购物车</a>
 

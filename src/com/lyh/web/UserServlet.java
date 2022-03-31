@@ -43,7 +43,8 @@ public class UserServlet extends BaseServlet {
         //(1)销毁session的信息
         req.getSession().invalidate();
         //(2)重定向到首页
-        resp.sendRedirect(req.getContextPath());
+//        userServlet?action=logout 即 basePath + "传入的位置"
+        resp.sendRedirect("index.jsp");
     }
 
     protected void regist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

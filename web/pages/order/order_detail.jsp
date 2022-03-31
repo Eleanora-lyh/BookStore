@@ -20,7 +20,7 @@
 </head>
 <body>
 <div id="header">
-    <img class="logo_img" alt="" src="static/img/logo.gif">
+<%--    <img class="logo_img" alt="" src="static/img/logo.gif">--%>
     <span class="wel_word">订单详情</span>
     <%@ include file="/pages/commen/login_success_menu.jsp" %>
 </div>

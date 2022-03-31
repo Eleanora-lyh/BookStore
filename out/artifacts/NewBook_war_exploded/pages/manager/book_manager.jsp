@@ -25,7 +25,7 @@
 <body>
 
 <div id="header">
-    <img class="logo_img" alt="" src="static/img/logo.gif">
+<%--    <img class="logo_img" alt="" src="static/img/logo.gif">--%>
     <span class="wel_word">图书管理系统</span>
     <%-- 静态包含 manager管理模块的菜单  --%>
     <%@include file="/pages/commen/manager_menu.jsp" %>
